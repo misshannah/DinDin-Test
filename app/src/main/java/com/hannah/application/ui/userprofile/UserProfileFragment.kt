@@ -20,22 +20,17 @@ class UserProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.asyncSubscribe(UserProfileState::user)
-        searchView.isVisible = false
-        swipeRefreshLayout.setOnRefreshListener { viewModel.fetchUser() }
     }
 
     override fun invalidate() = withState(viewModel) { state ->
         super.invalidate()
-        swipeRefreshLayout.isRefreshing = state.user is Loading || state.user is Uninitialized
     }
 
     override fun epoxyController() = simpleController(viewModel) { state ->
         val u = state.user.invoke()
 
         if (u == null) {
-            swipeRefreshLayout.isRefreshing = true
         } else {
-            swipeRefreshLayout.isRefreshing = false
             profile {
                 id(u.userId.toString())
                 profileName(u.userName)

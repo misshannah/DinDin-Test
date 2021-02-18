@@ -10,13 +10,11 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface StackOverflowService {
+interface FoodDataService {
 
     @GET("users?order=desc&sort=reputation&site=stackoverflow")
     fun getUsersRx(): Single<UsersResponse>
 
-    @GET("users?order=desc&sort=reputation&site=stackoverflow")
-    fun getUsersRxSearch(@Query("inname") query: String): Single<UsersResponse>
 
     @GET("users/{id}?site=stackoverflow")
     fun getUserDetail(@Path("id") id: String): Single<UsersResponse>

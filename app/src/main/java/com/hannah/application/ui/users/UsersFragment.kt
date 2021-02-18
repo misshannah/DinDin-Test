@@ -54,17 +54,13 @@ class UsersFragment : BaseFragment() {
     *  you can access the state of multiple viewModels as well */
     override fun invalidate() = withState(viewModel) { state ->
         super.invalidate()
-        swipeRefreshLayout.isRefreshing = state.users is Loading || state.users is Uninitialized
     }
 
     /* send all intents to the viewModel via this observable */
     private fun intents(): Observable<UserListIntent> {
         return Observable.merge(
             listOf(
-                initialIntent(),
-                refreshIntent(),
-                clearSearchIntent(),
-                searchIntent()
+                initialIntent()
             )
         )
     }
@@ -73,38 +69,6 @@ class UsersFragment : BaseFragment() {
         return Observable.just(UserListIntent.InitialIntent)
     }
 
-    private fun refreshIntent(): Observable<UserListIntent.RefreshIntent> {
-        return RxSwipeRefreshLayout.refreshes(swipeRefreshLayout)
-            .map { UserListIntent.RefreshIntent }
-    }
-
-    private fun clearSearchIntent(): Observable<UserListIntent.ClearSearchIntent> {
-        val searchViewRelay = PublishRelay.create<UserListIntent.ClearSearchIntent>()
-        searchView.setOnCloseListener(object : SearchView.OnCloseListener {
-            override fun onClose(): Boolean {
-                searchViewRelay.accept(UserListIntent.ClearSearchIntent)
-                return false
-            }
-        })
-        return searchViewRelay.hide()
-    }
-
-    private fun searchIntent(): Observable<UserListIntent.SearchIntent> {
-        val searchViewRelay = PublishRelay.create<UserListIntent.SearchIntent>()
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchViewRelay.accept(UserListIntent.SearchIntent(query!!, true))
-                return false
-            }
-
-            override fun onQueryTextChange(query: String?): Boolean {
-                if (query.isNullOrBlank()) searchViewRelay.accept(UserListIntent.SearchIntent(query!!, true))
-                else searchViewRelay.accept(UserListIntent.SearchIntent(query))
-                return false
-            }
-        })
-        return searchViewRelay.hide()
-    }
 
 }
 

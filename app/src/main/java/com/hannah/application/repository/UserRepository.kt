@@ -3,17 +3,17 @@ package com.hannah.application.repository
 import com.hannah.application.database.UserDao
 import com.hannah.application.database.UserEntity
 import com.hannah.application.model.User
-import com.hannah.application.network.StackOverflowSyncer
+import com.hannah.application.network.FoodDataSyncer
 import io.reactivex.Single
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(
-    private val stackOverflowSyncer: StackOverflowSyncer,
+    private val foodDataSyncer: FoodDataSyncer,
     private val userDao: UserDao
 ) {
 
     fun getUsersRx(): Single<List<User>> {
-        return stackOverflowSyncer.refreshUsers().flatMap {
+        return foodDataSyncer.refreshUsers().flatMap {
             userDao.getUsersRx().map {
                 it.map(UserEntity::toUserModel)
             }
@@ -31,11 +31,5 @@ class UserRepository @Inject constructor(
         }
     }
 
-    fun getUsersRxSearch(query: String): Single<List<User>> {
-        return stackOverflowSyncer.refreshUsersSearch(query).flatMap {
-            userDao.getUsersRxSearch(query).map {
-                it.map(UserEntity::toUserModel)
-            }
-        }
-    }
+
 }

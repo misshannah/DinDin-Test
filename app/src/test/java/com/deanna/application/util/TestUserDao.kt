@@ -1,8 +1,9 @@
 package com.hannah.mvrx.util
 
 import androidx.room.Room
-import com.hannah.mvrx.database.AppDatabase
-import com.hannah.mvrx.database.UserDao
+import com.hannah.application.database.AppDatabase
+import com.hannah.application.database.UserDao
+import com.hannah.application.util.RobolectricTest
 import org.junit.After
 import java.io.IOException
 

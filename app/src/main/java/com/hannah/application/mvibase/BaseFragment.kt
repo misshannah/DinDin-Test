@@ -22,8 +22,6 @@ import io.reactivex.Observable
 abstract class BaseFragment : BaseMvRxFragment() {
 
     private lateinit var recyclerView: EpoxyRecyclerView
-    protected lateinit var searchView: SearchView
-    protected lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private val epoxyController by lazy { epoxyController() }
 
 
@@ -45,8 +43,6 @@ abstract class BaseFragment : BaseMvRxFragment() {
         container?.clearDisappearingChildren();
         return inflater.inflate(R.layout.main_fragment, container, false).apply {
             recyclerView = findViewById(R.id.recycler_view)
-            swipeRefreshLayout = findViewById(R.id.users_swipe_refresh_layout)
-            searchView = findViewById(R.id.user_list_search_view)
             recyclerView.setController(epoxyController)
         }
     }

@@ -3,31 +3,27 @@ package com.hannah.application.repository
 import com.hannah.application.database.UserDao
 import com.hannah.application.database.UserEntity
 import com.hannah.application.model.User
-import com.hannah.application.network.StackOverflowService
-import com.hannah.application.network.StackOverflowSyncer
+import com.hannah.application.network.FoodDataService
+import com.hannah.application.network.FoodDataSyncer
 import com.hannah.application.util.RobolectricTest
-import com.hannah.application.util.TestUserDao
+import com.hannah.mvrx.util.TestUserDao
 import com.nhaarman.mockitokotlin2.*
-import io.reactivex.Single
 import org.assertj.core.api.Assertions
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Answers
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 
 class UserRepositoryTest : RobolectricTest() {
-    private lateinit var stackOverflowSyncer: StackOverflowSyncer
-    private lateinit var stackOverflowService: StackOverflowService
+    private lateinit var foodDataSyncer: FoodDataSyncer
+    private lateinit var foodDataService: FoodDataService
     private lateinit var userDao: UserDao
     private lateinit var repository: UserRepository
 
     @Before
     fun setup() {
         userDao = spy(TestUserDao().create())
-        stackOverflowService = mock()
-        stackOverflowSyncer = StackOverflowSyncer(stackOverflowService,userDao)
-        repository = UserRepository(stackOverflowSyncer, userDao)
+        foodDataService = mock()
+        foodDataSyncer = FoodDataSyncer(foodDataService,userDao)
+        repository = UserRepository(foodDataSyncer, userDao)
         
     }
 
@@ -37,7 +33,7 @@ class UserRepositoryTest : RobolectricTest() {
 
         val user = repository.getUsersRx().blockingGet()
 
-        verify(stackOverflowSyncer, times(1)).refreshUsers()
+        verify(foodDataSyncer, times(1)).refreshUsers()
         verify(userDao, times(1)).getUsersRx()
         Assertions.assertThat(user.size).isEqualTo(1)
         Assertions.assertThat(user[0].userId == 0)

@@ -1,10 +1,7 @@
 package com.hannah.application.database
 
-
-import com.hannah.application.database.UserDao
-import com.hannah.application.database.UserEntity
 import com.hannah.application.util.RobolectricTest
-import com.hannah.application.util.TestUserDao
+import com.hannah.mvrx.util.TestUserDao
 import org.junit.Before
 import org.junit.Test
 

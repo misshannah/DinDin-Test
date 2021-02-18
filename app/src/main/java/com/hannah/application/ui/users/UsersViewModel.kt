@@ -34,10 +34,7 @@ class UsersViewModel @AssistedInject constructor(
      * ViewModel directly accesses, modifies, and renders state */
     private fun actionFromIntent(intent: UserListIntent) {
         return when (intent) {
-            UserListIntent.InitialIntent -> fetchInitialUsers()
-            UserListIntent.RefreshIntent -> fetchUsers()
-            UserListIntent.ClearSearchIntent -> fetchUsers()
-            is UserListIntent.SearchIntent -> searchUsers(intent.query, intent.network)
+            is UserListIntent.InitialIntent -> fetchInitialUsers()
         }
     }
 
@@ -61,12 +58,6 @@ class UsersViewModel @AssistedInject constructor(
         userRepository.getUsersRx().execute { copy(users = it) }
     }
 
-    private fun searchUsers(query: String, network: Boolean) = withState { state ->
-        if (state.users is Loading) return@withState
-
-        if (network) userRepository.getUsersRxSearch(query).execute { copy(users = it, query = query) }
-        else userRepository.getUsersRxLocalSearch(query).execute { copy(users = it, query = query) }
-    }
 
     @AssistedInject.Factory
     interface Factory {

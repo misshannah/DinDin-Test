@@ -10,15 +10,15 @@ import javax.inject.Inject
 
 
 
-class StackOverflowSyncer @Inject constructor(
-    private val stackOverflowService: StackOverflowService,
+class FoodDataSyncer @Inject constructor(
+    private val foodDataService: FoodDataService,
     private val userDao: UserDao
 ) {
     /* ensures we delete before making the call, and
     *  that all work is done on the io thread */
     fun refreshUsers(): Single<List<UserEntity>> {
         return Completable.fromRunnable { userDao.deleteAll() }.andThen(
-            stackOverflowService.getUsersRx()
+            foodDataService.getUsersRx()
                 .map(UsersResponse::toUserEntities)
                 .doOnSuccess {
                     userDao.insert(it)
@@ -28,15 +28,6 @@ class StackOverflowSyncer @Inject constructor(
         ).subscribeOn(Schedulers.io())
     }
 
-    fun refreshUsersSearch(query: String): Single<List<UserEntity>> {
-        return Completable.fromRunnable { userDao.deleteAll() }.andThen(
-            stackOverflowService.getUsersRxSearch(query)
-                .map(UsersResponse::toUserEntities)
-                .doOnSuccess {
-                    userDao.insert(it)
-                }
-                .doOnError { TODO() }
-        ).subscribeOn(Schedulers.io())
-    }
+
 
 }

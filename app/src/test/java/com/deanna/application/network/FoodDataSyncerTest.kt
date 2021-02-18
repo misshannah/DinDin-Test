@@ -5,7 +5,7 @@ import com.hannah.application.database.UserEntity
 import com.hannah.application.model.UserResponse
 import com.hannah.application.model.UsersResponse
 import com.hannah.application.util.RobolectricTest
-import com.hannah.application.util.TestUserDao
+import com.hannah.mvrx.util.TestUserDao
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.Single
 import org.assertj.core.api.Assertions
@@ -15,63 +15,43 @@ import org.mockito.Answers
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-class StackOverflowSyncerTest : RobolectricTest() {
+class FoodDataSyncerTest : RobolectricTest() {
     @Mock(answer = Answers.RETURNS_SMART_NULLS)
-    private lateinit var stackOverflowService: StackOverflowService
+    private lateinit var foodDataService: FoodDataService
     private lateinit var userDao: UserDao
-    private lateinit var stackOverflowSyncer: StackOverflowSyncer
+    private lateinit var foodDataSyncer: FoodDataSyncer
 
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
         userDao = spy(TestUserDao().create())
-        stackOverflowSyncer = StackOverflowSyncer(stackOverflowService, userDao)
+        foodDataSyncer = FoodDataSyncer(foodDataService, userDao)
 
-        whenever(stackOverflowService.getUsersRx()).thenReturn(Single.just(usersResponse))
-        whenever(stackOverflowService.getUsersRxSearch("user")).thenReturn(Single.just(usersResponse))
-        whenever(stackOverflowService.getUserDetail("0")).thenReturn(Single.just(usersResponse))
+        whenever(foodDataService.getUsersRx()).thenReturn(Single.just(usersResponse))
+        whenever(foodDataService.getUserDetail("0")).thenReturn(Single.just(usersResponse))
     }
 
     @Test
     fun refreshUsers() {
-        stackOverflowSyncer.refreshUsers().ignoreElement().blockingAwait()
+        foodDataSyncer.refreshUsers().ignoreElement().blockingAwait()
 
         verify(userDao, times(1)).deleteAll()
         verify(userDao, times(1)).insert(any<List<UserEntity>>())
-        verify(stackOverflowService, times(1)).getUsersRx()
+        verify(foodDataService, times(1)).getUsersRx()
     }
 
     @Test
     fun refreshUsers_with_data() {
         userDao.insert(userEntity)
 
-        val syncerRes = stackOverflowSyncer.refreshUsers().blockingGet()
+        val syncerRes = foodDataSyncer.refreshUsers().blockingGet()
         val daoRes = userDao.getUsersRx().blockingGet()
         Assertions.assertThat(syncerRes.size).isEqualTo(1)
         Assertions.assertThat(daoRes.size).isEqualTo(1)
         Assertions.assertThat(syncerRes[0]).isEqualTo(daoRes[0])
     }
 
-    @Test
-    fun refreshUsersSearch() {
-        stackOverflowSyncer.refreshUsersSearch("user").ignoreElement().blockingAwait()
-
-        verify(userDao, times(1)).deleteAll()
-        verify(userDao, times(1)).insert(any<List<UserEntity>>())
-        verify(stackOverflowService, times(1)).getUsersRxSearch("user")
-    }
-
-    @Test
-    fun refreshUsersSearch_with_data() {
-        userDao.insert(userEntity)
-
-        val syncerRes = stackOverflowSyncer.refreshUsersSearch("user").blockingGet()
-        val daoRes = userDao.getUsersRx().blockingGet()
-        Assertions.assertThat(syncerRes.size).isEqualTo(1)
-        Assertions.assertThat(daoRes.size).isEqualTo(1)
-        Assertions.assertThat(syncerRes[0]).isEqualTo(daoRes[0])
-    }
 
     private val userResponse = UserResponse(
         1,
