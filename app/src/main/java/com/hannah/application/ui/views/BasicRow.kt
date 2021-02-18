@@ -33,13 +33,14 @@ class BasicRow @JvmOverloads constructor(
 
     @TextProp
     fun setTitle(title: CharSequence) {
-        titleView.text = title
+        //titleView.text = title
+        titleView.text = "Pizza"
     }
 
     @TextProp
     fun setSubtitle(subtitle: CharSequence?) {
         subtitleView.visibility = if (subtitle.isNullOrBlank()) View.GONE else View.VISIBLE
-        subtitleView.text = subtitle
+        subtitleView.text = "Vegeterian"
     }
 
     @CallbackProp
