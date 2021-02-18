@@ -28,6 +28,7 @@ class UserProfileViewModel @AssistedInject constructor(
 
     init {
         fetchUser()
+
     }
 
     override fun processIntents(intents: Observable<UserListIntent>) {

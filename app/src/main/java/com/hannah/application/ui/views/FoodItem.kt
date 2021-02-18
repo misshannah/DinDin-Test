@@ -13,7 +13,7 @@ import com.hannah.application.R
 import com.squareup.picasso.Picasso
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
-class Profile @JvmOverloads constructor(
+class FoodItem @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -26,7 +26,7 @@ class Profile @JvmOverloads constructor(
     private val imageView: ImageView
 
     init {
-        inflate(context, R.layout.profile, this)
+        inflate(context, R.layout.food_item, this)
         profileNameView = findViewById(R.id.profileName)
         userIdView = findViewById(R.id.userId)
         repView = findViewById(R.id.rep)

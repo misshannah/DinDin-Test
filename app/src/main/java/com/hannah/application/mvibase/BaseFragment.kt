@@ -11,6 +11,7 @@ import android.view.animation.LayoutAnimationController
 import android.widget.SearchView
 import androidx.annotation.IdRes
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.BaseMvRxFragment
@@ -45,6 +46,8 @@ abstract class BaseFragment : BaseMvRxFragment() {
         return inflater.inflate(R.layout.main_fragment, container, false).apply {
             recyclerView = findViewById(R.id.recycler_view)
             recyclerView.setController(epoxyController)
+
+
 
         }
     }

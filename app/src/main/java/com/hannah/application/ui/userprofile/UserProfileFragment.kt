@@ -9,7 +9,7 @@ import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import com.hannah.application.mvibase.BaseFragment
 import com.hannah.application.mvibase.simpleController
-import com.hannah.application.ui.views.profile
+import com.hannah.application.ui.views.foodItem
 import javax.inject.Inject
 
 class UserProfileFragment : BaseFragment() {
@@ -31,7 +31,8 @@ class UserProfileFragment : BaseFragment() {
 
         if (u == null) {
         } else {
-            profile {
+
+            foodItem {
                 id(u.userId.toString())
                 profileName(u.userName)
                 userId(u.userId.toString())
