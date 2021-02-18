@@ -25,11 +25,5 @@ class UserRepository @Inject constructor(
     }
 
 
-    fun getUsersRxLocalSearch(query: String): Single<List<User>> {
-        return userDao.getUsersRxSearch(query).map {
-            it.map(UserEntity::toUserModel)
-        }
-    }
-
 
 }

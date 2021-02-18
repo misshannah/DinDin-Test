@@ -6,6 +6,8 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import android.widget.SearchView
 import androidx.annotation.IdRes
 import androidx.navigation.fragment.findNavController
@@ -20,7 +22,6 @@ import io.reactivex.Observable
 
 
 abstract class BaseFragment : BaseMvRxFragment() {
-
     private lateinit var recyclerView: EpoxyRecyclerView
     private val epoxyController by lazy { epoxyController() }
 
@@ -44,6 +45,7 @@ abstract class BaseFragment : BaseMvRxFragment() {
         return inflater.inflate(R.layout.main_fragment, container, false).apply {
             recyclerView = findViewById(R.id.recycler_view)
             recyclerView.setController(epoxyController)
+
         }
     }
 

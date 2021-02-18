@@ -13,9 +13,7 @@ import com.hannah.application.mvibase.BaseFragment
 import com.hannah.application.mvibase.simpleController
 import com.hannah.application.ui.userprofile.UserProfileArgs
 import com.hannah.application.ui.views.basicRow
-import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
-import com.jakewharton.rxbinding2.widget.RxSearchView
-import com.jakewharton.rxrelay2.PublishRelay
+
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -33,7 +31,9 @@ class UsersFragment : BaseFragment() {
 
     override fun epoxyController() = simpleController(viewModel) { state ->
         val list = state.users.invoke()
+
         list?.forEach { user ->
+
             basicRow {
                 id("ID: " + user.userId.toString())
                 title(user.userName)
