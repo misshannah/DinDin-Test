@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/usersListIndex">
+    app:startDestination="@id/foodsListIndex">
 
     <fragment
-        android:id="@+id/usersListIndex"
-        android:name="com.hannah.application.ui.food.UsersFragment">
+        android:id="@+id/foodsListIndex"
+        android:name="com.hannah.application.ui.food.FoodsFragment">
         <action
-            android:id="@+id/action_usersListIndex_to_usersProfileFragment"
-            app:destination="@id/userProfileFragment"/>
+            android:id="@+id/action_foodsListIndex_to_foodItemFragment"
+            app:destination="@id/foodItemFragment"/>
     </fragment>
     <fragment
-            android:id="@+id/userProfileFragment"
+            android:id="@+id/foodItemFragment"
             android:name="com.hannah.application.ui.fooditem.FoodItemFragment"/>
 
 </navigation>

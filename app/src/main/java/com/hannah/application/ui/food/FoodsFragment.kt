@@ -38,7 +38,7 @@ class FoodsFragment : BaseFragment() {
                 image(user.imageUrl)
                 clickListener { _ ->
                     navigateTo(
-                        R.id.action_usersListIndex_to_usersProfileFragment,
+                        R.id.action_foodsListIndex_to_foodItemFragment,
                         FoodItemArgs(user.userId)
                     )
                 }

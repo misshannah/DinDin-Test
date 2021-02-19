@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 data class FoodsResponse(
     @SerializedName("has_more") val has_more: Boolean,
-    @SerializedName("items") val userResponses: List<FoodResponse>,
+    @SerializedName("items") val foodResponses: List<FoodResponse>,
     @SerializedName("quota_max") val quota_max: Int,
     @SerializedName("quota_remaining") val quota_remaining: Int
 ) {
     fun toFoods(): List<Food> {
-        return this.userResponses.map {
+        return this.foodResponses.map {
             Food(
                 it.user_id ?: -1,
                 it.display_name ?: "",
@@ -22,7 +22,7 @@ data class FoodsResponse(
     }
 
     fun toFood(): Food {
-        val user = this.userResponses[0]
+        val user = this.foodResponses[0]
         return Food(
             user.user_id,
             user.display_name,
@@ -33,7 +33,7 @@ data class FoodsResponse(
     }
 
     fun toFoodEntities(): List<FoodEntity> {
-        return this.userResponses.map {
+        return this.foodResponses.map {
             FoodEntity(
                 it.user_id,
                 it.display_name,
