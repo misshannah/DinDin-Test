@@ -56,7 +56,9 @@ class BasicRow @JvmOverloads constructor(
     @CallbackProp
     fun setClickListener(clickListener: OnClickListener?) {
         setOnClickListener(clickListener)
-        button.setOnClickListener { button.setBackgroundColor(Color.GREEN)}
+        button.setOnClickListener {
+            button.setBackgroundColor(Color.GREEN)
+        }
 
         }
 }
