@@ -1,17 +1,17 @@
 package com.hannah.application.model
 
-import com.hannah.application.database.UserEntity
+import com.hannah.application.database.FoodEntity
 import com.google.gson.annotations.SerializedName
 
-data class UsersResponse(
+data class FoodsResponse(
     @SerializedName("has_more") val has_more: Boolean,
-    @SerializedName("items") val userResponses: List<UserResponse>,
+    @SerializedName("items") val userResponses: List<FoodResponse>,
     @SerializedName("quota_max") val quota_max: Int,
     @SerializedName("quota_remaining") val quota_remaining: Int
 ) {
-    fun toUsers(): List<User> {
+    fun toFoods(): List<Food> {
         return this.userResponses.map {
-            User(
+            Food(
                 it.user_id ?: -1,
                 it.display_name ?: "",
                 it.reputation ?: -1,
@@ -21,9 +21,9 @@ data class UsersResponse(
         }
     }
 
-    fun toUser(): User {
+    fun toFood(): Food {
         val user = this.userResponses[0]
-        return User(
+        return Food(
             user.user_id,
             user.display_name,
             user.reputation,
@@ -32,9 +32,9 @@ data class UsersResponse(
         )
     }
 
-    fun toUserEntities(): List<UserEntity> {
+    fun toFoodEntities(): List<FoodEntity> {
         return this.userResponses.map {
-            UserEntity(
+            FoodEntity(
                 it.user_id,
                 it.display_name,
                 it.reputation,
@@ -45,7 +45,7 @@ data class UsersResponse(
     }
 }
 
-data class UserResponse(
+data class FoodResponse(
     @SerializedName("accept_rate") val accept_rate: Int,
     @SerializedName("account_id") val account_id: Int,
     @SerializedName("creation_date") val creation_date: Int,

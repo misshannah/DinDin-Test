@@ -1,10 +1,7 @@
-package com.hannah.application.ui.userprofile
+package com.hannah.application.ui.fooditem
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
-import com.airbnb.mvrx.Loading
-import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import com.hannah.application.mvibase.BaseFragment
@@ -12,14 +9,14 @@ import com.hannah.application.mvibase.simpleController
 import com.hannah.application.ui.views.foodItem
 import javax.inject.Inject
 
-class UserProfileFragment : BaseFragment() {
+class FoodItemFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: UserProfileViewModel.Factory
-    private val viewModel: UserProfileViewModel by fragmentViewModel()
+    lateinit var viewModelFactory: FoodItemViewModel.Factory
+    private val viewModel: FoodItemViewModel by fragmentViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.asyncSubscribe(UserProfileState::user)
+        viewModel.asyncSubscribe(FoodItemState::food)
     }
 
     override fun invalidate() = withState(viewModel) { state ->
@@ -27,7 +24,7 @@ class UserProfileFragment : BaseFragment() {
     }
 
     override fun epoxyController() = simpleController(viewModel) { state ->
-        val u = state.user.invoke()
+        val u = state.food.invoke()
 
         if (u == null) {
         } else {

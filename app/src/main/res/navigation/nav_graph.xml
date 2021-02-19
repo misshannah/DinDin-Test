@@ -5,13 +5,13 @@
 
     <fragment
         android:id="@+id/usersListIndex"
-        android:name="com.hannah.application.ui.users.UsersFragment">
+        android:name="com.hannah.application.ui.food.UsersFragment">
         <action
             android:id="@+id/action_usersListIndex_to_usersProfileFragment"
             app:destination="@id/userProfileFragment"/>
     </fragment>
     <fragment
             android:id="@+id/userProfileFragment"
-            android:name="com.hannah.application.ui.userprofile.UserProfileFragment"/>
+            android:name="com.hannah.application.ui.fooditem.FoodItemFragment"/>
 
 </navigation>

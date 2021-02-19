@@ -1,8 +1,8 @@
 package com.hannah.application.di
 
 import com.hannah.application.ui.MainActivity
-import com.hannah.application.ui.userprofile.UserProfileFragment
-import com.hannah.application.ui.users.UsersFragment
+import com.hannah.application.ui.food.FoodsFragment
+import com.hannah.application.ui.fooditem.FoodItemFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -12,8 +12,8 @@ abstract class ActivityFragmentBuilder {
     abstract fun bindMainActivity(): MainActivity
 
     @ContributesAndroidInjector
-    abstract fun bindUsersFragment(): UsersFragment
+    abstract fun bindFoodsFragment(): FoodsFragment
 
     @ContributesAndroidInjector
-    abstract fun bindUserProfileFragment(): UserProfileFragment
+    abstract fun bindFoodItemFragment(): FoodItemFragment
 }

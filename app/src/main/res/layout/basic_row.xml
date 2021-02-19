@@ -16,6 +16,7 @@
             android:layout_height="250dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
+            android:background="@drawable/round_outline"
             android:scaleType="fitXY"
            />
 
@@ -46,8 +47,7 @@
             android:text="Add"
             android:textColor="@android:color/white"
             android:layout_gravity="right"></Button>
-
-
+    
     <View
             android:id="@+id/view"
             android:layout_width="match_parent"

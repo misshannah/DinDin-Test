@@ -6,20 +6,13 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-import android.widget.SearchView
 import androidx.annotation.IdRes
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.airbnb.mvrx.BaseMvRxFragment
 import com.airbnb.mvrx.MvRx
 import com.hannah.application.R
-import com.hannah.application.ui.users.UserListIntent
 import dagger.android.support.AndroidSupportInjection
-import io.reactivex.Observable
 
 
 abstract class BaseFragment : BaseMvRxFragment() {

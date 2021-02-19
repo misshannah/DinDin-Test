@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Database(entities = [UserEntity::class], version = 1, exportSchema = false)
+@Database(entities = [FoodEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDao
+    abstract fun foodDao(): FoodDao
 }
 
 @Singleton

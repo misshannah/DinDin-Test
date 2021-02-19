@@ -1,27 +1,24 @@
-package com.hannah.application.ui.users
+package com.hannah.application.ui.food
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.SearchView
-import com.airbnb.mvrx.Loading
-import com.airbnb.mvrx.Uninitialized
 import com.airbnb.mvrx.fragmentViewModel
 import com.airbnb.mvrx.withState
 import com.hannah.application.R
 import com.hannah.application.mvibase.BaseFragment
 import com.hannah.application.mvibase.simpleController
-import com.hannah.application.ui.userprofile.UserProfileArgs
+import com.hannah.application.ui.fooditem.FoodItemArgs
 import com.hannah.application.ui.views.basicRow
 
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class UsersFragment : BaseFragment() {
+class FoodsFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: UsersViewModel.Factory
-    private val viewModel: UsersViewModel by fragmentViewModel()
+    lateinit var viewModelFactory: FoodsViewModel.Factory
+    private val viewModel: FoodsViewModel by fragmentViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         /* send intents directly to the view model
@@ -42,9 +39,10 @@ class UsersFragment : BaseFragment() {
                 clickListener { _ ->
                     navigateTo(
                         R.id.action_usersListIndex_to_usersProfileFragment,
-                        UserProfileArgs(user.userId)
+                        FoodItemArgs(user.userId)
                     )
                 }
+
             }
         }
     }
@@ -57,7 +55,7 @@ class UsersFragment : BaseFragment() {
     }
 
     /* send all intents to the viewModel via this observable */
-    private fun intents(): Observable<UserListIntent> {
+    private fun intents(): Observable<FoodListIntent> {
         return Observable.merge(
             listOf(
                 initialIntent()
@@ -65,8 +63,8 @@ class UsersFragment : BaseFragment() {
         )
     }
 
-    private fun initialIntent(): Observable<UserListIntent.InitialIntent> {
-        return Observable.just(UserListIntent.InitialIntent)
+    private fun initialIntent(): Observable<FoodListIntent.InitialIntent> {
+        return Observable.just(FoodListIntent.InitialIntent)
     }
 
 

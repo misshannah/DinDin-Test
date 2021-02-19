@@ -1,8 +1,10 @@
 package com.hannah.application.ui.views
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -22,12 +24,14 @@ class BasicRow @JvmOverloads constructor(
     private val titleView: TextView
     private val subtitleView: TextView
     private val imageView: ImageView
+    private val button: Button
 
     init {
         inflate(context, R.layout.basic_row, this)
         titleView = findViewById(R.id.title)
         subtitleView = findViewById(R.id.subtitle)
         imageView = findViewById(R.id.user_list_profile_image)
+        button = findViewById(R.id.button)
         orientation = VERTICAL
     }
 
@@ -52,5 +56,7 @@ class BasicRow @JvmOverloads constructor(
     @CallbackProp
     fun setClickListener(clickListener: OnClickListener?) {
         setOnClickListener(clickListener)
-    }
+        button.setOnClickListener { button.setBackgroundColor(Color.GREEN)}
+
+        }
 }

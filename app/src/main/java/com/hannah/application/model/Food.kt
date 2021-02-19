@@ -3,7 +3,7 @@ package com.hannah.application.model
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class User(
+data class Food(
     val userId: Int,
     val userName: String,
     val reputation: Int,

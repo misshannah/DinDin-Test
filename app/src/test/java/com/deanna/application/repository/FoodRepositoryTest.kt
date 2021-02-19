@@ -1,49 +1,49 @@
 package com.hannah.application.repository
 
-import com.hannah.application.database.UserDao
-import com.hannah.application.database.UserEntity
-import com.hannah.application.model.User
+import com.hannah.application.database.FoodDao
+import com.hannah.application.database.FoodEntity
+import com.hannah.application.model.Food
 import com.hannah.application.network.FoodDataService
 import com.hannah.application.network.FoodDataSyncer
 import com.hannah.application.util.RobolectricTest
-import com.hannah.mvrx.util.TestUserDao
+import com.hannah.mvrx.util.TestFoodDao
 import com.nhaarman.mockitokotlin2.*
 import org.assertj.core.api.Assertions
 import org.junit.Before
 import org.junit.Test
 
-class UserRepositoryTest : RobolectricTest() {
+class FoodRepositoryTest : RobolectricTest() {
     private lateinit var foodDataSyncer: FoodDataSyncer
     private lateinit var foodDataService: FoodDataService
-    private lateinit var userDao: UserDao
-    private lateinit var repository: UserRepository
+    private lateinit var foodDao: FoodDao
+    private lateinit var repository: FoodRepository
 
     @Before
     fun setup() {
-        userDao = spy(TestUserDao().create())
+        foodDao = spy(TestFoodDao().create())
         foodDataService = mock()
-        foodDataSyncer = FoodDataSyncer(foodDataService,userDao)
-        repository = UserRepository(foodDataSyncer, userDao)
+        foodDataSyncer = FoodDataSyncer(foodDataService,foodDao)
+        repository = FoodRepository(foodDataSyncer, foodDao)
         
     }
 
     @Test
     fun getUsersRx() {
-        userDao.insert(userEntity)
+        foodDao.insert(userEntity)
 
         val user = repository.getUsersRx().blockingGet()
 
         verify(foodDataSyncer, times(1)).refreshUsers()
-        verify(userDao, times(1)).getUsersRx()
+        verify(foodDao, times(1)).getUsersRx()
         Assertions.assertThat(user.size).isEqualTo(1)
         Assertions.assertThat(user[0].userId == 0)
     }
 
-    private val userEntity = UserEntity(
+    private val userEntity = FoodEntity(
         0, "userName", 1, "imageUrl", "websiteUrl"
     )
 
-    private val userModel = User(
+    private val userModel = Food(
         0, "userName", 1, "imageUrl", "websiteUrl"
     )
 }
