@@ -12,7 +12,7 @@ class TestFoodDao : RobolectricTest() {
 
     fun create(): FoodDao {
         database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).allowMainThreadQueries().build()
-        return DelegatingFoodDao(database.userDao())
+        return DelegatingFoodDao(database.foodDao())
     }
 
     @After

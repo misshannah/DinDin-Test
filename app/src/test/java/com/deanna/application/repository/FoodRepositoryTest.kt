@@ -31,10 +31,10 @@ class FoodRepositoryTest : RobolectricTest() {
     fun getUsersRx() {
         foodDao.insert(userEntity)
 
-        val user = repository.getUsersRx().blockingGet()
+        val user = repository.getFoodRx().blockingGet()
 
         verify(foodDataSyncer, times(1)).refreshUsers()
-        verify(foodDao, times(1)).getUsersRx()
+        verify(foodDao, times(1)).getFoodsRx()
         Assertions.assertThat(user.size).isEqualTo(1)
         Assertions.assertThat(user[0].userId == 0)
     }

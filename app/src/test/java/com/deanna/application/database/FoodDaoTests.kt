@@ -22,7 +22,7 @@ class FoodDaoTests : RobolectricTest() {
         val user = FoodEntity(0, "userName", 100, imgUrl, webUrl)
         foodDao.insert(user)
 
-        val res = foodDao.getUsersRx().blockingGet()
+        val res = foodDao.getFoodsRx().blockingGet()
 
         assert(res.size == 1)
         val userRes = res[0]
@@ -44,7 +44,7 @@ class FoodDaoTests : RobolectricTest() {
         )
         foodDao.insert(users)
 
-        val res = foodDao.getUsersRx().blockingGet()
+        val res = foodDao.getFoodsRx().blockingGet()
 
         assert(res.size == 3)
         assert(res[0].userId == 0)
@@ -63,12 +63,6 @@ class FoodDaoTests : RobolectricTest() {
         )
         foodDao.insert(users)
 
-        val res = foodDao.getUsersRxSearch("jon").blockingGet()
-
-        assert(res.size == 2)
-        assert(res[0].userId == 11)
-        assert(res[1].userId == 222)
-        assert(!res.contains(FoodEntity(0, "userName", 100, imgUrl, webUrl)))
 
     }
 
@@ -82,7 +76,7 @@ class FoodDaoTests : RobolectricTest() {
         )
         foodDao.insert(users)
 
-        val res = foodDao.getUserDetailRx(11).blockingGet()
+        val res = foodDao.getFoodDetailRx(11).blockingGet()
 
         assert(res.userId == 11)
         assert(res.userName == "jon")
@@ -103,7 +97,7 @@ class FoodDaoTests : RobolectricTest() {
         foodDao.insert(users)
 
         foodDao.deleteAll()
-        val res = foodDao.getUsersRx().blockingGet()
+        val res = foodDao.getFoodsRx().blockingGet()
 
         assert(res.isEmpty())
 

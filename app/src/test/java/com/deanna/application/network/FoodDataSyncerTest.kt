@@ -2,8 +2,8 @@ package com.hannah.application.network
 
 import com.hannah.application.database.FoodDao
 import com.hannah.application.database.FoodEntity
-import com.hannah.application.model.UserResponse
-import com.hannah.application.model.UsersResponse
+import com.hannah.application.model.FoodResponse
+import com.hannah.application.model.FoodsResponse
 import com.hannah.application.util.RobolectricTest
 import com.hannah.mvrx.util.TestFoodDao
 import com.nhaarman.mockitokotlin2.*
@@ -28,8 +28,8 @@ class FoodDataSyncerTest : RobolectricTest() {
         foodDao = spy(TestFoodDao().create())
         foodDataSyncer = FoodDataSyncer(foodDataService, foodDao)
 
-        whenever(foodDataService.getUsersRx()).thenReturn(Single.just(usersResponse))
-        whenever(foodDataService.getUserDetail("0")).thenReturn(Single.just(usersResponse))
+        whenever(foodDataService.getFoodsRx()).thenReturn(Single.just(usersResponse))
+        whenever(foodDataService.getFoodDetail("0")).thenReturn(Single.just(usersResponse))
     }
 
     @Test
@@ -38,7 +38,7 @@ class FoodDataSyncerTest : RobolectricTest() {
 
         verify(foodDao, times(1)).deleteAll()
         verify(foodDao, times(1)).insert(any<List<FoodEntity>>())
-        verify(foodDataService, times(1)).getUsersRx()
+        verify(foodDataService, times(1)).getFoodsRx()
     }
 
     @Test
@@ -46,14 +46,14 @@ class FoodDataSyncerTest : RobolectricTest() {
         foodDao.insert(userEntity)
 
         val syncerRes = foodDataSyncer.refreshUsers().blockingGet()
-        val daoRes = foodDao.getUsersRx().blockingGet()
+        val daoRes = foodDao.getFoodsRx().blockingGet()
         Assertions.assertThat(syncerRes.size).isEqualTo(1)
         Assertions.assertThat(daoRes.size).isEqualTo(1)
         Assertions.assertThat(syncerRes[0]).isEqualTo(daoRes[0])
     }
 
 
-    private val userResponse = UserResponse(
+    private val userResponse = FoodResponse(
         1,
         2,
         3,
@@ -75,7 +75,7 @@ class FoodDataSyncerTest : RobolectricTest() {
         "websiteUrl"
     )
 
-    private val usersResponse = UsersResponse(
+    private val usersResponse = FoodsResponse(
         false,
         listOf(userResponse),
         1,
