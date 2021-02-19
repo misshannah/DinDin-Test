@@ -36,25 +36,25 @@ class FoodItem @JvmOverloads constructor(
 
     @TextProp
     fun setProfileName(profileName: CharSequence) {
-        profileNameView.text = profileName
+        profileNameView.text = "Pizza"
     }
 
     @TextProp
     fun setUserId(userId: CharSequence?) {
         userIdView.visibility = if (userId.isNullOrBlank()) View.GONE else View.VISIBLE
-        userIdView.text = userId
+        userIdView.text = "#001"
     }
 
     @TextProp
     fun setRep(rep: CharSequence?) {
         repView.visibility = if (rep.isNullOrBlank()) View.GONE else View.VISIBLE
-        repView.text = rep
+        repView.text = "$30.00"
     }
 
     @TextProp
     fun setWebsite(website: CharSequence?) {
         websiteView.visibility = if (website.isNullOrBlank()) View.GONE else View.VISIBLE
-        websiteView.text = website
+        websiteView.text = ""
     }
 
     @CallbackProp
